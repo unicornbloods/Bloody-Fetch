@@ -4,12 +4,12 @@
 
 // TODO: User, wm, Pixel Art
 
-mod utils;
+mod helpers;
 
 fn main() {
 
-    println!("Bloody Fetch");
+    // println!("Bloody Fetch");
     println!("OS: Gentoo Linux");
-    utils::packages::packages();
-    utils::kernel::kernel();
+    helpers::packages::packages();
+    helpers::kernel::kernel();
 }
