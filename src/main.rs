@@ -5,11 +5,14 @@
 // TODO: User, wm, Pixel Art
 
 mod helpers;
+mod utils;
 
 fn main() {
 
     // println!("Bloody Fetch");
-    println!("OS: Gentoo Linux");
-    helpers::packages::packages();
+    let distro = utils::determine_distro();
+    println!("OS: {}", distro);
+    helpers::packages::packages(distro);
     helpers::kernel::kernel();
+
 }

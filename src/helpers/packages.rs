@@ -1,12 +1,14 @@
 use scan_dir::*;
 
-pub fn packages() {
+pub fn packages(distro: String) {
     // Mutable so I can add together multiple package manager packages.
     // Looking at you bedrock linux.
     let mut total_packages: u16 = 0;
     
     // TODO: check if system is even gentoo first
-    total_packages += gentoo_emerge();
+    if distro == "Gentoo" {
+        total_packages += gentoo_emerge();
+    }
 
     // In future, maybe add support to other systems
 
