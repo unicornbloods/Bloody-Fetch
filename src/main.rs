@@ -12,7 +12,11 @@ fn main() {
     // println!("Bloody Fetch");
     let distro = utils::determine_distro();
     println!("OS: {}", distro);
-    helpers::packages::packages(distro);
-    helpers::kernel::kernel();
+
+    let packages = helpers::packages::packages(distro);
+    let kernel = helpers::kernel::kernel();
+
+    println!("PACKAGES: {}", packages);
+    println!("KERNEL: {}", kernel);
 
 }

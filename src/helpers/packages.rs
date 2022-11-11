@@ -1,6 +1,6 @@
 use scan_dir::*;
 
-pub fn packages(distro: String) {
+pub fn packages(distro: String) -> u16{
     // Mutable so I can add together multiple package manager packages.
     // Looking at you bedrock linux.
     let mut total_packages: u16 = 0;
@@ -12,7 +12,8 @@ pub fn packages(distro: String) {
 
     // In future, maybe add support to other systems
 
-    println!("PACKAGES: {}", total_packages);
+    // println!("PACKAGES: {}", total_packages);
+    return total_packages;
 }
 
 // Calculate the packages for emerge
