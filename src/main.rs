@@ -13,10 +13,14 @@ fn main() {
     let distro = utils::determine_distro();
     println!("OS: {}", distro);
 
-    let packages = helpers::packages::packages(distro);
     let kernel = helpers::kernel::kernel();
+    let packages = helpers::packages::packages(distro);
+    // let shell = helpers::shell::shell(); // Currently just returns the executable's directory
 
-    println!("PACKAGES: {}", packages);
+
     println!("KERNEL: {}", kernel);
+    println!("PACKAGES: {}", packages);
+    // println!("Shell: {}", shell);
+
 
 }

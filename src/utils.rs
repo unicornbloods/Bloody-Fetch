@@ -1,4 +1,4 @@
-use std::fs::File;
+use std::fs::{File, self};
 use std::io::{BufRead, BufReader};
 
 pub fn determine_distro() -> String {
@@ -12,7 +12,7 @@ pub fn determine_distro() -> String {
     return distro_name;
 }
 
-fn rem_chars(value: String, int_removed: i8) -> String {
+pub fn rem_chars(value: String, int_removed: i8) -> String {
     let mut chars = value.chars();
     // Skips a char
     for _ in 0..int_removed {
@@ -39,4 +39,10 @@ fn read_file(filename: &str) -> String {
     // let output = output.unwrap(); // unwrapping the option
 
     return output;
+}
+
+// Probably should just output the pathbuf then convert to string later
+pub fn readlink(filename: String) -> String {
+    let path = fs::read_link(filename);
+    return path.unwrap().into_os_string().into_string().unwrap();
 }
