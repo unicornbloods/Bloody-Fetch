@@ -1,9 +1,15 @@
 [package]
 name = "bloody_fetch"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
+rust-version = "1.65"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.release]
+strip = true
+lto = "fat"
+codegen-units = 1
 
 [dependencies]
 scan_dir = "0.3.3"
