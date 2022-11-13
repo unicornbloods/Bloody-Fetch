@@ -1,4 +1,4 @@
-use scan_dir::*;
+use walkdir::WalkDir;
 
 pub fn packages(distro: String) -> u16{
     // Mutable so I can add together multiple package manager packages.
@@ -18,20 +18,18 @@ pub fn packages(distro: String) -> u16{
 
 // Calculate the packages for emerge
 fn gentoo_emerge() -> u16 {
-    let mut total_packages: u16 = 0;
 
-    // Need to replicate "ls -d /var/db/pkg/*/*" for gentoo
-    ScanDir::dirs().read("/var/db/pkg", |iter| {
-        for (entry, _name) in iter {
-            ScanDir::dirs().read(entry.path() , |iter| {
-                for _entry in iter {
-                    total_packages += 1;
-                }
-            }).unwrap(); // End second layer depth
+    // // Need to replicate "ls -d /var/db/pkg/*/*" for gentoo
+    let total_packages = 
+    WalkDir::new("/var/db/pkg/")
+        .min_depth(2)
+        .max_depth(2)
+        .into_iter()
+        .flatten()
+        .filter(|e| e.file_type().is_dir())
+        // .inspect(|v| eprintln!("{v:?}")) // For debug
+        .count();
 
-        }
-    }).unwrap(); // End first layer depth
-
-    return total_packages;
+    return total_packages as u16;
 }
 

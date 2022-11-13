@@ -12,5 +12,5 @@ lto = "fat"
 codegen-units = 1
 
 [dependencies]
-scan_dir = "0.3.3"
 uname = "0.1.1"
+walkdir = "2.3.2"

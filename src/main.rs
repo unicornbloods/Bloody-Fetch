@@ -2,7 +2,7 @@
 // Started: 2022 / 10 / 21
 // Description: neofetch like program written in rust, my take for fun.
 
-// TODO: User, wm, Pixel Art
+// TODO: User, wm, Pixel Art, Flgs like -V
 
 mod helpers;
 mod utils;
