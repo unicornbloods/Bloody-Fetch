@@ -1,6 +1,6 @@
 [package]
 name = "bloody_fetch"
-version = "0.2.1"
+version = "0.3.0"
 edition = "2021"
 rust-version = "1.65"
 
@@ -14,3 +14,4 @@ codegen-units = 1
 [dependencies]
 uname = "0.1.1"
 walkdir = "2.3.2"
+nix = "0.25.0"

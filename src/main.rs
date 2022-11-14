@@ -9,7 +9,7 @@ mod utils;
 
 fn main() {
 
-    // println!("Bloody Fetch");
+    // println!("USER: {}", $UID);
     let distro = utils::determine_distro();
     println!("OS: {}", distro);
 
