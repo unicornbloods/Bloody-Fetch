@@ -4,23 +4,29 @@
 
 // TODO: User, wm, Pixel Art, Flgs like -V
 
+use crate::utils::determine_user;
+
 mod helpers;
 mod utils;
 
 fn main() {
 
-    // println!("USER: {}", $UID);
+    let user_data = determine_user();
+    let shell = &user_data[1];
+    let user = &user_data[0];
+
+    println!("USER: {}", user);
     let distro = utils::determine_distro();
     println!("OS: {}", distro);
 
     let kernel = helpers::kernel::kernel();
     let packages = helpers::packages::packages(distro);
-    // let shell = helpers::shell::shell(); // Currently just returns the executable's directory
+
 
 
     println!("KERNEL: {}", kernel);
     println!("PACKAGES: {}", packages);
-    // println!("Shell: {}", shell);
+    println!("Shell: {}", shell);
 
 
 }

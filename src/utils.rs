@@ -1,5 +1,6 @@
-use std::fs::{File, self};
+use std::fs::{File};
 use std::io::{BufRead, BufReader};
+use std::process::exit;
 
 use nix::libc::{getuid};
 
@@ -14,12 +15,35 @@ pub fn determine_distro() -> String {
     return distro_name;
 }
 
-pub fn determine_user() -> String {
-    // let uid = getuid();
+pub fn determine_user() -> [String; 2] {
+    let uid = unsafe{ getuid() }.to_owned().to_string();
+
+    if uid == "0" {
+        println!("Do not run random programs as root!");
+        exit(1);
+    }
     
+    let file = File::open("/etc/passwd").unwrap();
+    let reader = BufReader::new(file);
+
+    let (username, user_shell) = 'found: {
+        for (_index, line) in reader.lines().enumerate() {
+            let line = line.unwrap(); // unwrapping the result
+            // println!("{}. {}", index + 1, line); // Debug by listing lines in file being read
+
+            let split = line.split(":").collect::<Vec<_>>();
+            if split[2] == uid {
+                // If you somehow get a None I need to know your secrets
+                break 'found (split[0].to_string(), split[6].to_string());
+            }
+        }
+        panic!("didn't find id")
+    };
+
+    let user_data: [String; 2] = [username, user_shell];
 
 
-    return "turtle".to_string();
+    return user_data;
 }
 
 pub fn rem_chars(value: String, int_removed: i8) -> String {
@@ -54,7 +78,7 @@ fn read_file(filename: &str, line_num: u16) -> String {
     } else {
         // This section is just for if you have a specific number of lines to go through.
         // Probably won't be useful ever
-        output = "taco".to_string();
+        output = "taco".to_string(); // just here to stop errors;
         
         for (index, line) in reader.lines().enumerate() {
             let line= line.unwrap(); // unwrapping the result
@@ -81,7 +105,7 @@ fn read_file(filename: &str, line_num: u16) -> String {
 }
 
 // Probably should just output the pathbuf then convert to string later
-pub fn readlink(filename: String) -> String {
-    let path = fs::read_link(filename);
-    return path.unwrap().into_os_string().into_string().unwrap();
-}
+// pub fn readlink(filename: String) -> String {
+//     let path = fs::read_link(filename);
+//     return path.unwrap().into_os_string().into_string().unwrap();
+// }
